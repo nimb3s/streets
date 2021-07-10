@@ -1,0 +1,88 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nimb3s.Streets.Api", "src\Nimb3s.Streets.Api\Nimb3s.Streets.Api.csproj", "{70D5B4E3-924F-4847-B29B-4D9585871A3B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{093357F6-D2A9-4A92-9AD1-4747530A2C40}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nimb3s.Streets.Samples.Client", "samples\Nimb3s.Streets.Samples.Client\Nimb3s.Streets.Samples.Client.csproj", "{61E84D81-D3A2-4A5D-9336-36773C5AB3D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A8428423-DAD4-4DE5-87B9-EFCC136F6C51}"
+	ProjectSection(SolutionItems) = preProject
+		..\service-auth\.gitignore = ..\service-auth\.gitignore
+		docker-compose.yml = docker-compose.yml
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{B03A2174-30E3-4B37-ACBB-23E65D15450A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{831068ED-B834-4164-A6F3-4BF29D25E3E2}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\master-ci.yml = .github\workflows\master-ci.yml
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nimb3s.Streets.Api.Tests", "tests\Nimb3s.Streets.Api.Tests\Nimb3s.Streets.Api.Tests.csproj", "{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E248E58B-840C-4B26-97A5-307C7F9AA5B7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{E623FB7C-3042-4A2C-9213-664479AEC599}"
+	ProjectSection(SolutionItems) = preProject
+		k8s\pod-dev.yml = k8s\pod-dev.yml
+		k8s\port-svc-streets.yml = k8s\port-svc-streets.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{9D7C975A-8793-48DA-B2AB-2F3BE09545EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{EF60A2A0-758D-44BB-8C79-5A39E2CCC5F2}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\develop-ci.yml = .github\workflows\develop-ci.yml
+		.github\workflows\master-ci.yml = .github\workflows\master-ci.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		ReleaseDatabase|Any CPU = ReleaseDatabase|Any CPU
+		ReleaseNoDb|Any CPU = ReleaseNoDb|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{70D5B4E3-924F-4847-B29B-4D9585871A3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70D5B4E3-924F-4847-B29B-4D9585871A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70D5B4E3-924F-4847-B29B-4D9585871A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70D5B4E3-924F-4847-B29B-4D9585871A3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70D5B4E3-924F-4847-B29B-4D9585871A3B}.ReleaseDatabase|Any CPU.ActiveCfg = ReleaseDatabase|Any CPU
+		{70D5B4E3-924F-4847-B29B-4D9585871A3B}.ReleaseNoDb|Any CPU.ActiveCfg = ReleaseNoDb|Any CPU
+		{70D5B4E3-924F-4847-B29B-4D9585871A3B}.ReleaseNoDb|Any CPU.Build.0 = ReleaseNoDb|Any CPU
+		{61E84D81-D3A2-4A5D-9336-36773C5AB3D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61E84D81-D3A2-4A5D-9336-36773C5AB3D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61E84D81-D3A2-4A5D-9336-36773C5AB3D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61E84D81-D3A2-4A5D-9336-36773C5AB3D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61E84D81-D3A2-4A5D-9336-36773C5AB3D4}.ReleaseDatabase|Any CPU.ActiveCfg = ReleaseDatabase|Any CPU
+		{61E84D81-D3A2-4A5D-9336-36773C5AB3D4}.ReleaseNoDb|Any CPU.ActiveCfg = ReleaseNoDb|Any CPU
+		{61E84D81-D3A2-4A5D-9336-36773C5AB3D4}.ReleaseNoDb|Any CPU.Build.0 = ReleaseNoDb|Any CPU
+		{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC}.ReleaseDatabase|Any CPU.ActiveCfg = Release|Any CPU
+		{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC}.ReleaseDatabase|Any CPU.Build.0 = Release|Any CPU
+		{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC}.ReleaseNoDb|Any CPU.ActiveCfg = Release|Any CPU
+		{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC}.ReleaseNoDb|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{61E84D81-D3A2-4A5D-9336-36773C5AB3D4} = {093357F6-D2A9-4A92-9AD1-4747530A2C40}
+		{B03A2174-30E3-4B37-ACBB-23E65D15450A} = {A8428423-DAD4-4DE5-87B9-EFCC136F6C51}
+		{831068ED-B834-4164-A6F3-4BF29D25E3E2} = {B03A2174-30E3-4B37-ACBB-23E65D15450A}
+		{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC} = {E248E58B-840C-4B26-97A5-307C7F9AA5B7}
+		{EF60A2A0-758D-44BB-8C79-5A39E2CCC5F2} = {9D7C975A-8793-48DA-B2AB-2F3BE09545EB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {46268209-EA22-407C-AE07-35CA7C25DF71}
+	EndGlobalSection
+EndGlobal

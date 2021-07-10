@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-streets
+  labels:
+    app: streets
+spec:
+  containers:
+  - name: api-ctr
+    image: nimb3s/streets.api:develop-0.3.7
+    env:
+      - name: ASPNETCORE_ENVIRONMENT
+        value: Development
+    ports:
+      - containerPort: 80
+  - name: db-ctr
+    image: nimb3s/streets.database:develop-0.3.7
+    env:
+      - name: ASPNETCORE_ENVIRONMENT
+        value: Development
+    ports:
+      - containerPort: 1443
+#kubectl cluster-info
+#kubectl apply -f pod-dev.yml
+#kubectl get pods --watch
+#kubectl get pods -o wide
+#kubectl describe pods pod-streets
+
+#kubectl apply -f pod-dev.yml
+#kubectl apply -f port-svc-streets.yml
