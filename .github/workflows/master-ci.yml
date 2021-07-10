@@ -1,0 +1,136 @@
+name: master
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest]
+        #os: [ubuntu-latest, windows-latest, macOS-latest]
+
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+
+    - name: Setup SemVer
+      uses: dotnet/nbgv@v0.4.0
+      with:
+        setAllVars: true
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      env:
+        ASPNETCORE_ENVIRONMENT : Development
+      run: dotnet build --no-restore --configuration Release
+
+    #https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test
+    - name: Test
+      run: dotnet test --no-build --verbosity detailed
+
+    # - name: Get branch name
+    #   run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV      
+
+    - name: Upload API Build Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: api.${{env.NBGV_SemVer2}}
+        path: src/Nimb3s.Streets.Api/bin/Release/net5.0
+
+#    - name: Upload DB Build Artifacts
+#      uses: actions/upload-artifact@v2
+#      with:
+#        name: db.${{env.NBGV_SemVer2}}
+#        path: src/Nimb3s.Streets.Database/bin/Release/netstandard2.0
+
+  api_docker_image:
+    if: github.event.pull_request.base.ref != 'master'
+    needs: build
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest]
+        #os: [ubuntu-latest, windows-latest, macOS-latest]
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+
+      - name: Setup SemVer
+        uses: dotnet/nbgv@v0.4.0
+        with:
+          setAllVars: true
+
+      - name: Setup Slugs
+        uses: rlespinasse/github-slug-action@v3.x
+
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      - name: Docker - API Build Image
+        run: docker build -f "src/Nimb3s.Streets.Api/Dockerfile" --tag nimb3s/streets.api:latest --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Api" . --progress plain
+        
+      - name: Docker - API Upload Image to dockerhub
+        run: docker push nimb3s/streets.api:latest
+
+#  database_docker_image:
+#    if: github.event.pull_request.base.ref != 'master'
+#    needs: build
+#    runs-on: ${{matrix.os}}
+#    strategy:
+#      fail-fast: true
+#      matrix:
+#        os: [ubuntu-18.04]
+#        #os: [ubuntu-latest, windows-latest, macOS-latest]
+#
+#    steps:
+#      - name: Checkout branch
+#        uses: actions/checkout@v2
+#        with:
+#          fetch-depth: 0 
+#
+#      - name: Setup .NET
+#        uses: actions/setup-dotnet@v1
+#        with:
+#          dotnet-version: 5.0.x
+#
+#      - name: Setup SemVer
+#        uses: dotnet/nbgv@v0.4.0
+#        with:
+#          setAllVars: true
+#
+#      - name: Setup Slugs
+#        uses: rlespinasse/github-slug-action@v3.x
+#
+#      - name: Login to DockerHub Registry
+#        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+#
+#      - name: Docker - DB Building Image
+#        run: docker build -f "src/Nimb3s.Streets.Database/Dockerfile" --tag nimb3s/streets.database:latest --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Database" . --progress plain
+#        
+#      - name: Docker - DB Upload Image to dockerhub
+#        run: docker push nimb3s/streets.database:latest
