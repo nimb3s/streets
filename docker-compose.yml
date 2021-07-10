@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+    api:
+        container_name: Nimb3s.Streets.Api
+        build:
+          context: .
+          dockerfile: src/Nimb3s.Streets.Api/Dockerfile
+        ports:
+            - "8000:80"
+        depends_on:
+            - db
+    db:
+        container_name: Nimb3s.Streets.Database
+        build:
+          context: .
+          dockerfile: nimb3s/streets.database:develop-0.3.8
+
+        environment:
+            SA_PASSWORD: "1234qwerASDF"
+            ACCEPT_EULA: "Y"
+            MSSQL_PID: Express
+        ports:
+            - "31433:1433"
+
+#docker build -f "C:\git\streets\src\Nimb3s.Streets.Database\Dockerfile" -t nimb3s/streets --force-rm --label "com.microsoft.created-by=visual-studio" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Database" "C:\git\streets" --progress plain --no-cache
+#docker-compose build --no-cache --progress plain --pull
