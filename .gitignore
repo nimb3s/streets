@@ -373,3 +373,6 @@ my.secrets
 
 #Directories
 act/
+
+#e2e tests
+!Nimb3s.*.e2e
