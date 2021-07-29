@@ -17,7 +17,7 @@ namespace Nimb3s.Streets.Api.Tests.Controllers
         [Test]
         public void IsTrue()
         {
-            Assert.IsTrue(false, "Asserting IsTrue");
+            Assert.IsTrue(true, "Asserting IsTrue");
         }
     }
 }
