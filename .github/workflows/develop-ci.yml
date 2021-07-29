@@ -40,7 +40,7 @@ jobs:
 
     #https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test
     - name: Test
-      run: dotnet test --verbosity normal
+      run: dotnet test --filter *.UnitTests  --verbosity normal
 
     - name: Upload API Build Artifacts
       uses: actions/upload-artifact@v2
@@ -138,3 +138,34 @@ jobs:
         
       - name: Docker - DB Upload Image to dockerhub
         run: docker push nimb3s/streets.database:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
+
+  e2e_tests:
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest]
+    container: nimb3s/streets.api:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
+
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      env:
+        ASPNETCORE_ENVIRONMENT : Development
+      run: dotnet build --no-restore --configuration Release
+
+    #https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test
+    - name: Test
+      run: dotnet test --filter *.E2E  --verbosity normal
