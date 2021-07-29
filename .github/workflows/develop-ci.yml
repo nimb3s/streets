@@ -2,7 +2,7 @@ name: develop
 
 on:
   push:
-    branches: [ feature/**, release/**, hotfix/**, support/** ]
+    branches: [ develop, feature/**, release/**, hotfix/**, support/** ]
   pull_request:
     branches: [ develop ]
 
@@ -93,10 +93,10 @@ jobs:
       - name: Docker - API Build Image
         env:
           API_POSTGRID_KEY: ${{ secrets.API_POSTGRID_KEY }}
-        run: docker build -f "src/Nimb3s.Streets.Api/Dockerfile" --tag nimb3s/streets.api:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Api" --build-arg API_POSTGRID_KEY=$API_POSTGRID_KEY . --progress plain
+        run: docker build -f "src/Nimb3s.Streets.Api/Dockerfile" --tag nimb3s/streets.api:develop-latest --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Api" --build-arg API_POSTGRID_KEY=$API_POSTGRID_KEY . --progress plain
         
       - name: Docker - API Upload Image to dockerhub
-        run: docker push nimb3s/streets.api:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
+        run: docker push nimb3s/streets.api:develop-latest
 
   database_docker_image:
     if: github.event.pull_request.base.ref != 'develop'
@@ -134,7 +134,38 @@ jobs:
         run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
 
       - name: Docker - DB Build Image
-        run: docker build -f "src/Nimb3s.Streets.Database/Dockerfile" --tag nimb3s/streets.database:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Database" . --progress plain
+        run: docker build -f "src/Nimb3s.Streets.Database/Dockerfile" --tag nimb3s/streets.database:develop-latest --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Database" . --progress plain
         
       - name: Docker - DB Upload Image to dockerhub
-        run: docker push nimb3s/streets.database:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
+        run: docker push nimb3s/streets.database:develop-latest
+
+  e2e_tests:
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest]
+    container: nimb3s/streets.api:develop-latest
+
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      env:
+        ASPNETCORE_ENVIRONMENT : Development
+      run: dotnet build --no-restore --configuration Release
+
+    #https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test
+    - name: Test
+      run: dotnet test --filter *.E2E  --verbosity normal
