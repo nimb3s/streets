@@ -40,7 +40,7 @@ jobs:
 
     #https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --verbosity normal
 
     # - name: Get branch name
     #   run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV      
