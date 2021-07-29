@@ -14,13 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\service-auth\.gitignore = ..\service-auth\.gitignore
 		docker-compose.yml = docker-compose.yml
 		README.md = README.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{B03A2174-30E3-4B37-ACBB-23E65D15450A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{831068ED-B834-4164-A6F3-4BF29D25E3E2}"
-	ProjectSection(SolutionItems) = preProject
-		.github\workflows\master-ci.yml = .github\workflows\master-ci.yml
+		version.json = version.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E248E58B-840C-4B26-97A5-307C7F9AA5B7}"
@@ -99,8 +93,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{61E84D81-D3A2-4A5D-9336-36773C5AB3D4} = {093357F6-D2A9-4A92-9AD1-4747530A2C40}
-		{B03A2174-30E3-4B37-ACBB-23E65D15450A} = {A8428423-DAD4-4DE5-87B9-EFCC136F6C51}
-		{831068ED-B834-4164-A6F3-4BF29D25E3E2} = {B03A2174-30E3-4B37-ACBB-23E65D15450A}
 		{EF60A2A0-758D-44BB-8C79-5A39E2CCC5F2} = {9D7C975A-8793-48DA-B2AB-2F3BE09545EB}
 		{1CE20782-8704-4540-8CF1-51AE8BB02374} = {E248E58B-840C-4B26-97A5-307C7F9AA5B7}
 		{6383DB54-3D51-4C7D-AB1B-8A78F1548AB8} = {E248E58B-840C-4B26-97A5-307C7F9AA5B7}
