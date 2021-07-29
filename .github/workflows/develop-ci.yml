@@ -140,6 +140,7 @@ jobs:
         run: docker push nimb3s/streets.database:develop-latest
 
   e2e_tests:
+    needs: api_docker_image
     runs-on: ${{matrix.os}}
     strategy:
       fail-fast: true
