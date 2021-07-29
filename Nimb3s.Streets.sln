@@ -43,9 +43,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "e2e", "e2e", "{1CE20782-870
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unittests", "unittests", "{6383DB54-3D51-4C7D-AB1B-8A78F1548AB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nimb3s.Streets.Api.UnitTests", "tests\unittests\Nimb3s.Streets.Api.UnitTests\Nimb3s.Streets.Api.UnitTests.csproj", "{FDFD7610-E221-4220-B8E6-208BE2D08B38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nimb3s.Streets.Api.UnitTests", "tests\unittests\Nimb3s.Streets.Api.UnitTests\Nimb3s.Streets.Api.UnitTests.csproj", "{FDFD7610-E221-4220-B8E6-208BE2D08B38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nimb3s.Streets.Api.E2E", "tests\e2e\Nimb3s.Streets.Api.E2E\Nimb3s.Streets.Api.E2E.csproj", "{D7A09266-ADA2-48B1-8469-5E9CF25F83FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nimb3s.Streets.Api.E2E", "tests\e2e\Nimb3s.Streets.Api.E2E\Nimb3s.Streets.Api.E2E.csproj", "{D7A09266-ADA2-48B1-8469-5E9CF25F83FC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nimb3s.Streets.Database", "src\Nimb3s.Streets.Database\Nimb3s.Streets.Database.csproj", "{94AB71FC-4F34-4098-8112-3B06DF8CC033}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,7 +76,6 @@ Global
 		{FDFD7610-E221-4220-B8E6-208BE2D08B38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDFD7610-E221-4220-B8E6-208BE2D08B38}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FDFD7610-E221-4220-B8E6-208BE2D08B38}.ReleaseDatabase|Any CPU.ActiveCfg = Release|Any CPU
-		{FDFD7610-E221-4220-B8E6-208BE2D08B38}.ReleaseDatabase|Any CPU.Build.0 = Release|Any CPU
 		{FDFD7610-E221-4220-B8E6-208BE2D08B38}.ReleaseNoDb|Any CPU.ActiveCfg = Release|Any CPU
 		{FDFD7610-E221-4220-B8E6-208BE2D08B38}.ReleaseNoDb|Any CPU.Build.0 = Release|Any CPU
 		{D7A09266-ADA2-48B1-8469-5E9CF25F83FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -82,9 +83,16 @@ Global
 		{D7A09266-ADA2-48B1-8469-5E9CF25F83FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7A09266-ADA2-48B1-8469-5E9CF25F83FC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D7A09266-ADA2-48B1-8469-5E9CF25F83FC}.ReleaseDatabase|Any CPU.ActiveCfg = Release|Any CPU
-		{D7A09266-ADA2-48B1-8469-5E9CF25F83FC}.ReleaseDatabase|Any CPU.Build.0 = Release|Any CPU
 		{D7A09266-ADA2-48B1-8469-5E9CF25F83FC}.ReleaseNoDb|Any CPU.ActiveCfg = Release|Any CPU
 		{D7A09266-ADA2-48B1-8469-5E9CF25F83FC}.ReleaseNoDb|Any CPU.Build.0 = Release|Any CPU
+		{94AB71FC-4F34-4098-8112-3B06DF8CC033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94AB71FC-4F34-4098-8112-3B06DF8CC033}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94AB71FC-4F34-4098-8112-3B06DF8CC033}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94AB71FC-4F34-4098-8112-3B06DF8CC033}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94AB71FC-4F34-4098-8112-3B06DF8CC033}.ReleaseDatabase|Any CPU.ActiveCfg = Release|Any CPU
+		{94AB71FC-4F34-4098-8112-3B06DF8CC033}.ReleaseDatabase|Any CPU.Build.0 = Release|Any CPU
+		{94AB71FC-4F34-4098-8112-3B06DF8CC033}.ReleaseNoDb|Any CPU.ActiveCfg = ReleaseNoDb|Any CPU
+		{94AB71FC-4F34-4098-8112-3B06DF8CC033}.ReleaseNoDb|Any CPU.Build.0 = ReleaseNoDb|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
