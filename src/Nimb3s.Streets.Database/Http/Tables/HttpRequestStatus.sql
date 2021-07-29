@@ -1,6 +1,6 @@
 ﻿create table [Http].[HttpRequestStatus]
 (
-	Id bigint not null streets(1,1),
+	Id bigint not null identity(1,1),
 	HttpRequestId uniqueidentifier not null,
 	HttpRequestStatusTypeId smallint not null,
     [StatusTimeStamp] datetimeoffset NOT NULL default (sysutcdatetime()),

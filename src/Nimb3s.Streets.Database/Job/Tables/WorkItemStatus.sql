@@ -1,6 +1,6 @@
 ﻿CREATE TABLE Job.[WorkItemStatus]
 (
-	Id bigint not null streets(1,1),
+	Id bigint not null identity(1,1),
 	WorkItemId uniqueidentifier not null,
 	WorkItemStatusTypeId smallint not null,
     [StatusTimeStamp] DATETIMEOFFSET NOT NULL default(SYSUTCDATETIME()), 

@@ -12,5 +12,5 @@ RUN wget -progress=bar:force -q -O sqlpackage.zip https://go.microsoft.com/fwlin
     && mkdir /tmp/db \
     && chown -R mssql /tmp/db
 
-#docker build -f "C:\git\streets\src\Nimb3s.Streets.Database\base-sq-server.Dockerfile" -t nimb3s/base-sql-server:2019-latest --force-rm "C:\git\streets" --progress plain --no-cache
+#docker build -f "C:\git\identity\src\Nimb3s.Streets.Database\base-sq-server.Dockerfile" -t nimb3s/base-sql-server:2019-latest --force-rm "C:\git\identity" --progress plain --no-cache
 #docker push nimb3s/base-sql-server:2019-latest

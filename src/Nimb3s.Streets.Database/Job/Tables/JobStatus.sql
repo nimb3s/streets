@@ -1,6 +1,6 @@
 ﻿create table Job.[JobStatus]
 (
-	Id bigint streets(1,1),
+	Id bigint identity(1,1),
 	JobId uniqueidentifier not null,
 	JobStatusTypeId smallint not null,
     [StatusTimeStamp] datetimeoffset not null default (sysutcdatetime()),

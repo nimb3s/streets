@@ -6,8 +6,10 @@
         <!-- For additional properties that can be set here, please refer to https://github.com/rr-wfm/MSBuild.Sdk.SqlProj#model-properties -->
     </PropertyGroup>
 
-    <PropertyGroup>
-        <!-- Refer to https://github.com/rr-wfm/MSBuild.Sdk.SqlProj#publishing-support for supported publishing options -->
+    <PropertyGroup><!-- Refer to https://github.com/rr-wfm/MSBuild.Sdk.SqlProj#publishing-support for supported publishing options -->
+    
+      <Company>Nimb3s</Company>
+      <Authors>Nimb3s</Authors>
     </PropertyGroup>
 
 	<ItemGroup>
