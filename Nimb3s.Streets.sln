@@ -14,16 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\service-auth\.gitignore = ..\service-auth\.gitignore
 		docker-compose.yml = docker-compose.yml
 		README.md = README.md
+		version.json = version.json
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{B03A2174-30E3-4B37-ACBB-23E65D15450A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{831068ED-B834-4164-A6F3-4BF29D25E3E2}"
-	ProjectSection(SolutionItems) = preProject
-		.github\workflows\master-ci.yml = .github\workflows\master-ci.yml
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nimb3s.Streets.Api.Tests", "tests\Nimb3s.Streets.Api.Tests\Nimb3s.Streets.Api.Tests.csproj", "{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E248E58B-840C-4B26-97A5-307C7F9AA5B7}"
 EndProject
@@ -40,6 +32,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\develop-ci.yml = .github\workflows\develop-ci.yml
 		.github\workflows\master-ci.yml = .github\workflows\master-ci.yml
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "e2e", "e2e", "{1CE20782-8704-4540-8CF1-51AE8BB02374}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unittests", "unittests", "{6383DB54-3D51-4C7D-AB1B-8A78F1548AB8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nimb3s.Streets.Api.UnitTests", "tests\unittests\Nimb3s.Streets.Api.UnitTests\Nimb3s.Streets.Api.UnitTests.csproj", "{FDFD7610-E221-4220-B8E6-208BE2D08B38}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nimb3s.Streets.Api.E2E", "tests\e2e\Nimb3s.Streets.Api.E2E\Nimb3s.Streets.Api.E2E.csproj", "{D7A09266-ADA2-48B1-8469-5E9CF25F83FC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nimb3s.Streets.Database", "src\Nimb3s.Streets.Database\Nimb3s.Streets.Database.csproj", "{94AB71FC-4F34-4098-8112-3B06DF8CC033}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,24 +65,39 @@ Global
 		{61E84D81-D3A2-4A5D-9336-36773C5AB3D4}.ReleaseDatabase|Any CPU.ActiveCfg = ReleaseDatabase|Any CPU
 		{61E84D81-D3A2-4A5D-9336-36773C5AB3D4}.ReleaseNoDb|Any CPU.ActiveCfg = ReleaseNoDb|Any CPU
 		{61E84D81-D3A2-4A5D-9336-36773C5AB3D4}.ReleaseNoDb|Any CPU.Build.0 = ReleaseNoDb|Any CPU
-		{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC}.ReleaseDatabase|Any CPU.ActiveCfg = Release|Any CPU
-		{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC}.ReleaseDatabase|Any CPU.Build.0 = Release|Any CPU
-		{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC}.ReleaseNoDb|Any CPU.ActiveCfg = Release|Any CPU
-		{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC}.ReleaseNoDb|Any CPU.Build.0 = Release|Any CPU
+		{FDFD7610-E221-4220-B8E6-208BE2D08B38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDFD7610-E221-4220-B8E6-208BE2D08B38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDFD7610-E221-4220-B8E6-208BE2D08B38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDFD7610-E221-4220-B8E6-208BE2D08B38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDFD7610-E221-4220-B8E6-208BE2D08B38}.ReleaseDatabase|Any CPU.ActiveCfg = Release|Any CPU
+		{FDFD7610-E221-4220-B8E6-208BE2D08B38}.ReleaseNoDb|Any CPU.ActiveCfg = Release|Any CPU
+		{FDFD7610-E221-4220-B8E6-208BE2D08B38}.ReleaseNoDb|Any CPU.Build.0 = Release|Any CPU
+		{D7A09266-ADA2-48B1-8469-5E9CF25F83FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7A09266-ADA2-48B1-8469-5E9CF25F83FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7A09266-ADA2-48B1-8469-5E9CF25F83FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7A09266-ADA2-48B1-8469-5E9CF25F83FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7A09266-ADA2-48B1-8469-5E9CF25F83FC}.ReleaseDatabase|Any CPU.ActiveCfg = Release|Any CPU
+		{D7A09266-ADA2-48B1-8469-5E9CF25F83FC}.ReleaseNoDb|Any CPU.ActiveCfg = Release|Any CPU
+		{D7A09266-ADA2-48B1-8469-5E9CF25F83FC}.ReleaseNoDb|Any CPU.Build.0 = Release|Any CPU
+		{94AB71FC-4F34-4098-8112-3B06DF8CC033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94AB71FC-4F34-4098-8112-3B06DF8CC033}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94AB71FC-4F34-4098-8112-3B06DF8CC033}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94AB71FC-4F34-4098-8112-3B06DF8CC033}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94AB71FC-4F34-4098-8112-3B06DF8CC033}.ReleaseDatabase|Any CPU.ActiveCfg = Release|Any CPU
+		{94AB71FC-4F34-4098-8112-3B06DF8CC033}.ReleaseDatabase|Any CPU.Build.0 = Release|Any CPU
+		{94AB71FC-4F34-4098-8112-3B06DF8CC033}.ReleaseNoDb|Any CPU.ActiveCfg = ReleaseNoDb|Any CPU
+		{94AB71FC-4F34-4098-8112-3B06DF8CC033}.ReleaseNoDb|Any CPU.Build.0 = ReleaseNoDb|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{61E84D81-D3A2-4A5D-9336-36773C5AB3D4} = {093357F6-D2A9-4A92-9AD1-4747530A2C40}
-		{B03A2174-30E3-4B37-ACBB-23E65D15450A} = {A8428423-DAD4-4DE5-87B9-EFCC136F6C51}
-		{831068ED-B834-4164-A6F3-4BF29D25E3E2} = {B03A2174-30E3-4B37-ACBB-23E65D15450A}
-		{50D3B058-A5C6-4261-9C9E-BFCE7C866CBC} = {E248E58B-840C-4B26-97A5-307C7F9AA5B7}
 		{EF60A2A0-758D-44BB-8C79-5A39E2CCC5F2} = {9D7C975A-8793-48DA-B2AB-2F3BE09545EB}
+		{1CE20782-8704-4540-8CF1-51AE8BB02374} = {E248E58B-840C-4B26-97A5-307C7F9AA5B7}
+		{6383DB54-3D51-4C7D-AB1B-8A78F1548AB8} = {E248E58B-840C-4B26-97A5-307C7F9AA5B7}
+		{FDFD7610-E221-4220-B8E6-208BE2D08B38} = {6383DB54-3D51-4C7D-AB1B-8A78F1548AB8}
+		{D7A09266-ADA2-48B1-8469-5E9CF25F83FC} = {1CE20782-8704-4540-8CF1-51AE8BB02374}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {46268209-EA22-407C-AE07-35CA7C25DF71}

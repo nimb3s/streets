@@ -1,0 +1,23 @@
+﻿<Project Sdk="MSBuild.Sdk.SqlProj/1.11.4">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <SqlServerVersion>Sql150</SqlServerVersion>
+        <Configurations>Debug;Release;ReleaseNoDb</Configurations>
+        <!-- For additional properties that can be set here, please refer to https://github.com/rr-wfm/MSBuild.Sdk.SqlProj#model-properties -->
+    </PropertyGroup>
+
+    <PropertyGroup><!-- Refer to https://github.com/rr-wfm/MSBuild.Sdk.SqlProj#publishing-support for supported publishing options -->
+    
+      <Company>Nimb3s</Company>
+      <Authors>Nimb3s</Authors>
+    </PropertyGroup>
+
+	<ItemGroup>
+		<None Include="Scripts\Post-Deploy\Types\Http\HttpRequestStatusType.sql" />
+		<None Include="Scripts\Post-Deploy\Types\Job\JobStatusType.sql" />
+		<None Include="Scripts\Post-Deploy\Types\Job\WorkItemStatusType.sql" />
+		<None Include="Scripts\Post-Deploy\Types\types-runner.sql" />
+		<None Include="Scripts\Post-Deploy\Types\types.sql" />
+    </ItemGroup>
+	
+</Project>
