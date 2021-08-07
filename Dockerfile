@@ -34,7 +34,6 @@ FROM unittests AS publish
 RUN dotnet publish "src/Nimb3s.Streets.Api/Nimb3s.Streets.Api.csproj" -c Release -o /app/publish/Nimb3s.Streets.Api
 
 # create a new build target called componenttestrunner
-#https://joehonour.medium.com/a-guide-to-setting-up-a-net-core-project-using-docker-with-integrated-unit-and-component-tests-a326ca5a0284
 FROM publish AS componenttestrunner
 WORKDIR /app/tests/Nimb3s.Streets.Api.ComponentTests
 # when you run this build target it will run the component tests
