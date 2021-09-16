@@ -34,11 +34,11 @@ FROM unittests AS publish
 RUN dotnet publish "src/Nimb3s.Streets.Api/Nimb3s.Streets.Api.csproj" -c Release -o /app/publish/Nimb3s.Streets.Api
 
 # create a new build target called componenttestrunner
-#https://joehonour.medium.com/a-guide-to-setting-up-a-net-core-project-using-docker-with-integrated-unit-and-component-tests-a326ca5a0284
 FROM publish AS componenttestrunner
 WORKDIR /app/tests/Nimb3s.Streets.Api.ComponentTests
 # when you run this build target it will run the component tests
 CMD ["dotnet", "test", "--logger:trx"]
+#CMD dotnet test --verbosity normal
 
 ####run api
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS final
@@ -47,3 +47,10 @@ COPY --from=publish /app/publish/Nimb3s.Streets.Api /app/executables/Nimb3s.Stre
 ENTRYPOINT ["dotnet", "executables/Nimb3s.Streets.Api/Nimb3s.Streets.Api.dll"]
 #EXPOSE 80
 #EXPOSE 443
+
+
+
+#docker build -t example-service:latest . 
+#docker run --rm -it -p 5000:80 nimb3s/streets 
+#docker stop wtf
+#https://joehonour.medium.com/a-guide-to-setting-up-a-net-core-project-using-docker-with-integrated-unit-and-component-tests-a326ca5a0284

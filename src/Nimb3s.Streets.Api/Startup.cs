@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Nimb3s.Streets.Api.HostedServices;
 
 namespace Nimb3s.Streets.Api
 {
@@ -39,6 +40,8 @@ namespace Nimb3s.Streets.Api
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             ConfigureSwaggerServices(services);
+
+            //services.AddHostedService<E2EHostedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
