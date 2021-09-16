@@ -124,7 +124,7 @@ jobs:
         run: docker-compose -f "docker-compose.yml" up --detach
 
       - name: Run Component Test Container
-        run: docker run --network=host --name component_tests_${{env.GITHUB_REF_SLUG}}_${{env.NBGV_SimpleVersion} nimb3s/streets.api.componenttests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}
+        run: docker run --network=host --name component_tests_${{env.GITHUB_REF_SLUG}}_${{env.NBGV_SimpleVersion} nimb3s/streets.api.componenttests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
 
       - name: Stop containers
         if: always()
