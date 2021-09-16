@@ -4,7 +4,7 @@ services:
         container_name: Nimb3s.Streets.Api
         build:
           context: .
-          dockerfile: src/Nimb3s.Streets.Api/Dockerfile
+          dockerfile: nimb3s/streets.api:${GITHUB_REF_SLUG}}-${NBGV_SimpleVersion}
         ports:
             - "5000:80"
         depends_on:
@@ -13,7 +13,7 @@ services:
         container_name: Nimb3s.Streets.Database
         build:
           context: .
-          dockerfile: src/Nimb3s.Streets.Database/Dockerfile
+          dockerfile: nimb3s/streets.database:${GITHUB_REF_SLUG}}-${NBGV_SimpleVersion}
 
         environment:
             SA_PASSWORD: "1234qwerASDF"
@@ -28,8 +28,9 @@ services:
 #docker build --target componenttestrunner -f "C:\git\streets\src\Nimb3s.Streets.Api\Dockerfile" -t nimb3s/streets.api --force-rm --label "com.microsoft.created-by=visual-studio" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Api" "C:\git\streets" --progress plain --no-cache
 
 
-
+#docker build -t example-service:latest .
+#docker build --target componenttestrunner -t example-service-component-tests:latest .
 #docker-compose up --build
 #docker run --network=host example-service-component-tests:latest
 #docker-compose stop
-#docker-compose rm
+#docker-compose rm --force

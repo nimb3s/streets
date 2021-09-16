@@ -38,6 +38,7 @@ FROM publish AS componenttestrunner
 WORKDIR /app/tests/Nimb3s.Streets.Api.ComponentTests
 # when you run this build target it will run the component tests
 CMD ["dotnet", "test", "--logger:trx"]
+#CMD dotnet test --verbosity normal
 
 ####run api
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS final
