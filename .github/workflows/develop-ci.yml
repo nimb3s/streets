@@ -164,7 +164,7 @@ jobs:
         run: docker push nimb3s/streets.api:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
         
       - name: Docker - DB Upload Image to dockerhub
-        run: docker push nimb3s/streets.database:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} }
+        run: docker push nimb3s/streets.database:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
 
       - name: Docker - Component Tests Upload Image to dockerhub
         run: docker push nimb3s/streets.api.componenttests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
