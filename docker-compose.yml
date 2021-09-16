@@ -24,7 +24,12 @@ services:
 
 #docker build -f "C:\git\streets\src\Nimb3s.Streets.Database\Dockerfile" -t nimb3s/streets --force-rm --label "com.microsoft.created-by=visual-studio" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Database" "C:\git\streets" --progress plain --no-cache
 #docker-compose build --no-cache --progress plain --pull
-
 #docker build -f "C:\git\streets\src\Nimb3s.Streets.Api\Dockerfile" -t nimb3s/streets.api --force-rm --label "com.microsoft.created-by=visual-studio" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Api" "C:\git\streets" --progress plain --no-cache
-
 #docker build --target componenttestrunner -f "C:\git\streets\src\Nimb3s.Streets.Api\Dockerfile" -t nimb3s/streets.api --force-rm --label "com.microsoft.created-by=visual-studio" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Api" "C:\git\streets" --progress plain --no-cache
+
+
+
+#docker-compose up --build
+#docker run --network=host example-service-component-tests:latest
+#docker-compose stop
+#docker-compose rm
