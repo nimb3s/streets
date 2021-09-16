@@ -4,7 +4,7 @@ services:
         container_name: Nimb3s.Streets.Api
         build:
           context: .
-          dockerfile: nimb3s/streets.api:${GITHUB_REF_SLUG}}-${NBGV_SimpleVersion}
+          dockerfile: feature-e2e-in-container-0.4.22
         ports:
             - "5000:80"
         depends_on:
@@ -13,8 +13,7 @@ services:
         container_name: Nimb3s.Streets.Database
         build:
           context: .
-          dockerfile: nimb3s/streets.database:${GITHUB_REF_SLUG}}-${NBGV_SimpleVersion}
-
+          dockerfile: nimb3s/streets.database:feature-e2e-in-container-0.4.22
         environment:
             SA_PASSWORD: "1234qwerASDF"
             ACCEPT_EULA: "Y"

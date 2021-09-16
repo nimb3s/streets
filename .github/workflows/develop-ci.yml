@@ -129,10 +129,10 @@ jobs:
         uses: rlespinasse/github-slug-action@v3.x
 
       - name: Start containers
-        run: docker-compose -f "docker-compose.yml" up --detach
+        run: docker-compose up --detach
 
       - name: Run Component Test Container
-        run: docker run --network=host --name component_tests_${{env.GITHUB_REF_SLUG}}_${{env.NBGV_SimpleVersion}} nimb3s/streets.api.componenttests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
+        run: docker run --network=host --name component_tests nimb3s/streets.api.componenttests:feature-e2e-in-container-0.4.22
 
       - name: Stop containers
         if: always()
