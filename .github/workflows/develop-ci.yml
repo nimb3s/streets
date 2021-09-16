@@ -7,6 +7,19 @@ on:
     branches: [ develop ]
 
 jobs:
+  current_date:
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Set current date as env variable
+        run: echo "NOW::$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+      - name: Echo current date
+        run: echo $NOW
+
   api_docker_image:
     if: github.event.pull_request.base.ref != 'develop'
     needs: build
