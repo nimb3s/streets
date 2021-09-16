@@ -1,19 +1,20 @@
 version: "3.9"
 services:
     api:
-        container_name: Nimb3s.Streets.Api
+        container_name: Streets.Api
         build:
           context: .
-          dockerfile: nimb3s/feature-e2e-in-container-0.4.22
+          dockerfile: Dockerfile
         ports:
             - "5000:80"
         depends_on:
             - db
     db:
-        container_name: Nimb3s.Streets.Database
+        container_name: Streets.Database
         build:
           context: .
-          dockerfile: nimb3s/streets.database:feature-e2e-in-container-0.4.22
+          dockerfile: src/Nimb3s.Streets.Database/Dockerfile
+
         environment:
             SA_PASSWORD: "1234qwerASDF"
             ACCEPT_EULA: "Y"
