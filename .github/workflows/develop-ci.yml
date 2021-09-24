@@ -148,9 +148,6 @@ jobs:
         with:
           node-version: '14.17.6'
 
-      - name: Install npm Dependencies
-        run: npm ci
-
       - name: Install Playwright
         run: npx playwright install --with-deps
       #https://playwright.dev/docs/docker/
