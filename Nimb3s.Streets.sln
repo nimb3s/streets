@@ -31,7 +31,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{EF60A2A0-758D-44BB-8C79-5A39E2CCC5F2}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\develop-ci.yml = .github\workflows\develop-ci.yml
-		.github\workflows\develop-e2e.yml = .github\workflows\develop-e2e.yml
 		.github\workflows\master-ci.yml = .github\workflows\master-ci.yml
 	EndProjectSection
 EndProject
@@ -41,7 +40,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nimb3s.Streets.Api.Componen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nimb3s.Streets.Api.UnitTests", "tests\Nimb3s.Streets.Api.UnitTests\Nimb3s.Streets.Api.UnitTests.csproj", "{4D867FBE-6995-44BD-9D04-D88A60E7A448}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nimb3s.Streets.Api.E2ETests", "tests\Nimb3s.Streets.Api.E2ETests\Nimb3s.Streets.Api.E2ETests.csproj", "{905F3424-4153-4E92-A269-F15ADF0E70C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nimb3s.Streets.Api.E2ETests", "tests\Nimb3s.Streets.Api.E2ETests\Nimb3s.Streets.Api.E2ETests.csproj", "{905F3424-4153-4E92-A269-F15ADF0E70C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
