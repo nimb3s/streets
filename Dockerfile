@@ -13,18 +13,12 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /app
-COPY ["src/Nimb3s.Streets.Api/Nimb3s.Streets.Api.csproj", "src/Nimb3s.Streets.Api/"]
-COPY ["tests/Nimb3s.Streets.Api.UnitTests/Nimb3s.Streets.Api.UnitTests.csproj", "tests/Nimb3s.Streets.Api.UnitTests/"]
-COPY ["tests/Nimb3s.Streets.Api.ComponentTests/Nimb3s.Streets.Api.ComponentTests.csproj", "tests/Nimb3s.Streets.Api.ComponentTests/"]
-RUN ls -R
-RUN dotnet restore "src/Nimb3s.Streets.Api/Nimb3s.Streets.Api.csproj"
-RUN dotnet restore "tests/Nimb3s.Streets.Api.UnitTests/Nimb3s.Streets.Api.UnitTests.csproj"
-RUN dotnet restore "tests/Nimb3s.Streets.Api.ComponentTests/Nimb3s.Streets.Api.ComponentTests.csproj"
 COPY . .
-RUN dotnet build "src/Nimb3s.Streets.Api/Nimb3s.Streets.Api.csproj" -c Release -o /app/build/Nimb3s.Streets.Api
-RUN dotnet build "tests/Nimb3s.Streets.Api.UnitTests/Nimb3s.Streets.Api.UnitTests.csproj" -c Release -o /app/build/Nimb3s.Streets.Api.UnitTests
-RUN dotnet build "tests/Nimb3s.Streets.Api.ComponentTests/Nimb3s.Streets.Api.ComponentTests.csproj" -c Release -o /app/build/Nimb3s.Streets.Api.ComponentTests
-#RUN ls -R
+RUN ls -R
+RUN dotnet restore 
+COPY . .
+RUN dotnet build -c Release -o /app/build/Nimb3s.Streets.Api
+
 
 FROM build AS unittests
 WORKDIR /app
@@ -40,13 +34,18 @@ WORKDIR /app/tests/Nimb3s.Streets.Api.ComponentTests
 CMD ["dotnet", "test", "--logger:trx"]
 #CMD dotnet test --verbosity normal
 
+# create a new build target called e2etestrunner
+FROM publish AS e2etestrunner
+WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
+# when you run this build target it will run the component tests
+CMD ["dotnet", "test", "--logger:trx"]
+#CMD dotnet test --verbosity normal
+
 ####run api
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish/Nimb3s.Streets.Api /app/executables/Nimb3s.Streets.Api
 ENTRYPOINT ["dotnet", "executables/Nimb3s.Streets.Api/Nimb3s.Streets.Api.dll"]
-#EXPOSE 80
-#EXPOSE 443
 
 
 
