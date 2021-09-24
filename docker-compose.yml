@@ -32,8 +32,10 @@ services:
 #docker build --target componenttestrunner -t nimb3s-streets-component-tests:latest .
 #docker build --target e2etestrunner -t nimb3s-streets-e2e-tests:latest .
 #docker-compose up --detach
-docker pull mcr.microsoft.com/playwright:v1.10.0-focal
-docker run -it --rm --ipc=host mcr.microsoft.com/playwright:focal /bin/bash
+
+#docker pull mcr.microsoft.com/playwright:v1.10.0-focal
+#docker run -it --rm --ipc=host mcr.microsoft.com/playwright:focal /bin/bash
+
 #docker run --network=host nimb3s-streets-component-tests:latest
 #docker run --network=host nimb3s-streets-e2e-tests:latest
 #docker-compose stop

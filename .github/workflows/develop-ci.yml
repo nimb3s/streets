@@ -143,12 +143,20 @@ jobs:
       - name: Run Component Tests
         run: docker run --network=host --name component_tests nimb3s/streets.api.componenttests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
 
+      - name: Install dependencies
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.17.6'
+        run: npm ci
+      - name: Install Playwright
+        run: npx playwright install --with-deps
       #https://playwright.dev/docs/docker/
-      - name: Pull Playwright Image
-        run: docker pull mcr.microsoft.com/playwright:v1.10.0-focal
-
-      - name: Run Playwright Image
-        run: docker run -it --rm --ipc=host mcr.microsoft.com/playwright:focal /bin/bash
+      #- name: Pull Playwright Image
+      #  run: docker pull mcr.microsoft.com/playwright:v1.10.0-focal
+      #
+      #- name: Run Playwright Image
+      #  run: docker run -it --rm --ipc=host mcr.microsoft.com/playwright:focal /bin/bash
 
       - name: Run E2E Tests
         run: docker run --network=host --name e2e_tests nimb3s/streets.api.e2etests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
