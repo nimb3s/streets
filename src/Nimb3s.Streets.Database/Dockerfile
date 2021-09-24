@@ -22,15 +22,15 @@ WORKDIR /tmp/db/
 COPY --from=build /app/build/Nimb3s.Streets.Database/Nimb3s.Streets.Database.dacpac /tmp/db/Nimb3s.Streets.Database.dacpac
 RUN ls -R
 # shows secret from default secret location:
-RUN --mount=type=secret,id=mysecret cat /run/secrets/mysecret
-RUN --mount=type=secret,id=_secrets,dst=/etc/secrets/.secrets cat /etc/secrets/.secrets
+#RUN --mount=type=secret,id=mysecret cat /run/secrets/mysecret
+#RUN --mount=type=secret,id=_secrets,dst=/etc/secrets/.secrets cat /etc/secrets/.secrets
 
 # Configure external build arguments to allow configurability.
-#ARG DBNAME=Streets
-#ARG PASSWORD=1234qwerASDF
+ARG DBNAME=Streets
+ARG PASSWORD=1234qwerASDF
 # Configure the required environmental variables
-#ENV ACCEPT_EULA=Y
-#ENV SA_PASSWORD=$PASSWORD
+ENV ACCEPT_EULA=Y
+ENV SA_PASSWORD=$PASSWORD
 # Launch SQL Server, confirm startup is complete, deploy the DACPAC, then terminate SQL Server.
 # See https://stackoverflow.com/a/51589787/488695
 RUN ( /opt/mssql/bin/sqlservr & ) | grep -q "Service Broker manager has started" \
