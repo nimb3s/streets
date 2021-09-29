@@ -39,15 +39,14 @@ FROM mcr.microsoft.com/playwright:v1.10.0-focal as playwright
 #RUN chown -R pwuser:pwuser /app
 FROM publish AS e2etestrunner
 COPY --from=playwright . .
+RUN chown -R `whoami` /app
 RUN chown -R `whoami` /root
-RUN chown -R `whoami` /root/.cache
 RUN apt-get update \
     && apt-get upgrade -y \
     && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
     && apt-get install -y nodejs
 RUN npm -v
 RUN npm i playwright
-RUN chown -R `whoami` /app
 RUN chown -R `whoami` /root/.cache/ms-playwright
 WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
 #when you run this build target it will run the component tests
