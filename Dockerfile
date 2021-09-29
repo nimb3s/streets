@@ -38,9 +38,13 @@ CMD ["dotnet", "test", "--logger:trx"]
 FROM publish as e2etestrunner
 #RUN dotnet tool install --global Microsoft.Playwright.CLI
 #RUN playwright install
+RUN RUN chown -R `whoami` /app
+RUN chown -R `whoami` /root
 WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
 RUN dotnet restore
 RUN dotnet publish
+RUN dotnet tool install --global Microsoft.Playwright.CLI
+RUN playwright install
 RUN apt-get update \
     && apt-get install libglib2.0-0 -y \
     && apt-get install libnss3 -y \
@@ -67,10 +71,12 @@ RUN apt-get update \
     && apt-get install libatspi2.0-0 -y \
     && apt-get install libxshmfence1 -y
 
-RUN chmod +rx,o+rx /app/.playwright \
-    && chmod +rx,o+rx /app/.playwright/node \
-    && chmod +rx,o+rx /app/.playwright/node/linux \
-    && chmod +rx,o+rx /app/.playwright/node/linux/playwright.sh
+
+
+#RUN chmod +rx,o+rx /app/.playwright \
+#    && chmod +rx,o+rx /app/.playwright/node \
+#    && chmod +rx,o+rx /app/.playwright/node/linux \
+#    && chmod +rx,o+rx /app/.playwright/node/linux/playwright.sh
 #RUN chown -R `whoami` /app
 #RUN chown -R `whoami` /root
 #RUN apt-get update \
