@@ -4,7 +4,7 @@ services:
         container_name: Streets.Api
         build:
           context: .
-          dockerfile: nimbes/streets.api:${GITHUB_REF_SLUG}-${NBGV_SimpleVersion}
+          dockerfile: nimb3s/streets.api:${GITHUB_REF_SLUG}-${NBGV_SimpleVersion}
         ports:
             - "5000:80"
         depends_on:
@@ -13,7 +13,7 @@ services:
         container_name: Streets.Database
         build:
           context: .
-          dockerfile: nimbes/streets.database:${GITHUB_REF_SLUG}-${NBGV_SimpleVersion}
+          dockerfile: nimb3s/streets.database:${GITHUB_REF_SLUG}-${NBGV_SimpleVersion}
 
         environment:
             SA_PASSWORD: "1234qwerASDF"
