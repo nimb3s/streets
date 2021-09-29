@@ -46,7 +46,7 @@ RUN apt-get update \
     && apt-get install -y nodejs
 RUN npm -v
 RUN npm install -g npx
-RUN npm i playwright
+RUN npx playwright install --with-deps
 CMD ["dotnet", "test", "--logger:trx"]
 #RUN apt-get update \
 #    && apt-get upgrade -y \
