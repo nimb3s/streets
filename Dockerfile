@@ -35,10 +35,10 @@ CMD ["dotnet", "test", "--logger:trx"]
 #CMD dotnet test --verbosity normal
 
 # create a new build target called e2etestrunner
-#FROM mcr.microsoft.com/playwright:v1.10.0-focal as playwright
+FROM mcr.microsoft.com/playwright:v1.10.0-focal as playwright
 #RUN chown -R pwuser:pwuser /app
 FROM publish AS e2etestrunner
-#COPY --from=playwright . .
+COPY --from=playwright . .
 RUN chown -R `whoami` /app
 RUN chown -R `whoami` /root
 RUN apt-get update \
