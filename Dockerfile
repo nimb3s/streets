@@ -37,6 +37,8 @@ CMD ["dotnet", "test", "--logger:trx"]
 # create a new build target called e2etestrunner
 FROM mcr.microsoft.com/playwright:v1.10.0-focal as playwright
 #RUN chown -R pwuser:pwuser /app
+RUN chown -R `whoami` /root/.cache/ms-playwright
+RUN chown -R `whoami` /app
 FROM publish AS e2etestrunner
 COPY --from=playwright . .
 RUN apt-get update \
@@ -44,7 +46,7 @@ RUN apt-get update \
     && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
     && apt-get install -y nodejs
 RUN npm -v
-RUN npm install -g playwright
+RUN npm i playwright
 WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
 #when you run this build target it will run the component tests
 CMD ["dotnet", "test", "--logger:trx"]
