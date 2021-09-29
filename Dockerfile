@@ -39,7 +39,6 @@ CMD ["dotnet", "test", "--logger:trx"]
 #RUN dotnet tool install --global Microsoft.Playwright.CLI
 #RUN playwright install
 FROM mcr.microsoft.com/playwright:v1.10.0-bionic AS e2etestrunner
-RUN chown -R `whoami` /app
 RUN chown -R `whoami` /root
 WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
 
@@ -52,6 +51,8 @@ RUN apt-get update \
     && apt-get install -y aspnetcore-runtime-5.0 \
     && apt-get remove -y wget
 COPY --from=publish . .
+#RUN chown -R pwuser:pwuser /app
+RUN chown -R `whoami` /app
 CMD ["dotnet", "test", "--logger:trx"]
 
 
