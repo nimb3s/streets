@@ -36,11 +36,13 @@ CMD ["dotnet", "test", "--logger:trx"]
 
 # create a new build target called e2etestrunner
 FROM mcr.microsoft.com/playwright:v1.10.0-focal as playwright
-FROM node:lts-buster-slim AS node_base
 #RUN chown -R pwuser:pwuser /app
 FROM publish AS e2etestrunner
 COPY --from=playwright . .
-COPY --from=node_base . .
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+    && apt-get install -y nodejs
 RUN npm -v
 RUN npm install -g npx
 WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
