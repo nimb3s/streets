@@ -15,7 +15,9 @@ namespace Nimb3s.Streets.Api.E2ETests
         public async Task Test1()
         {
             using var playwright = await Playwright.CreateAsync();
-            await using var browser = await playwright.Chromium.LaunchAsync();
+            var chromium = playwright.Chromium;
+            // Can be "msedge", "chrome-beta", "msedge-beta", "msedge-dev", etc.
+            var browser = await chromium.LaunchAsync(new BrowserTypeLaunchOptions { Channel = "chrome" });
             var page = await browser.NewPageAsync();
             await page.GotoAsync("https://playwright.dev/dotnet");
             await page.ScreenshotAsync(new PageScreenshotOptions { Path = "screenshot.png" });
