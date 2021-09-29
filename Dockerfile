@@ -36,17 +36,19 @@ CMD ["dotnet", "test", "--logger:trx"]
 
 # create a new build target called e2etestrunner
 FROM publish as e2etestrunner
+RUN dotnet tool install --global Microsoft.Playwright.CLI
+RUN playwright install
 WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
-RUN chown -R `whoami` /app
-RUN chown -R `whoami` /root
-RUN apt-get update \
-    && apt-get upgrade -y \
-    && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
-    && apt-get install -y nodejs
-RUN npm -v
+#RUN chown -R `whoami` /app
+#RUN chown -R `whoami` /root
+#RUN apt-get update \
+#    && apt-get upgrade -y \
+#    && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+#    && apt-get install -y nodejs
+#RUN npm -v
 #RUN npm ci
 #RUN npm install -g npx
-RUN npx playwright install --with-deps
+#RUN npx playwright install --with-deps
 CMD ["dotnet", "test", "--logger:trx"]
 #RUN apt-get update \
 #    && apt-get upgrade -y \
