@@ -105,7 +105,107 @@ jobs:
 #      - name: Docker - DB Upload Image to dockerhub
 #        run: docker push nimb3s/streets.database:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
 
-  build_and_deploy_containers:
+#  build:
+#    if: github.event.pull_request.base.ref != 'develop'
+#    #needs: [api_docker_image, database_docker_image]
+#    runs-on: ${{matrix.os}}
+#    strategy:
+#      fail-fast: true
+#      matrix:
+#        os: [ubuntu-18.04]
+#
+#    steps:
+#      - name: Checkout branch
+#        uses: actions/checkout@v2
+#        with:
+#          fetch-depth: 0
+#
+#      - name: Setup SemVer
+#        uses: dotnet/nbgv@v0.4.0
+#        with:
+#          setAllVars: true
+#
+#      - name: Setup Slugs
+#        uses: rlespinasse/github-slug-action@v3.x
+#
+#      - name: Docker - API Build Image
+#        env:
+#          API_POSTGRID_KEY: ${{ secrets.API_POSTGRID_KEY }}
+#        #run: docker build -f "Dockerfile" --tag nimb3s/streets.api:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Api" --build-arg API_POSTGRID_KEY=$API_POSTGRID_KEY . --progress plain
+#        run: docker build --tag nimb3s/streets.api:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Api" --build-arg API_POSTGRID_KEY=$API_POSTGRID_KEY . --progress plain
+#
+#      - name: Build Component Test Container
+#        run: docker build --target componenttestrunner -t nimb3s/streets.api.componenttests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} .
+#
+#      - name: Build E2E Test Container
+#        run: docker build --target e2etestrunner -t nimb3s/streets.api.e2etests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} .
+#
+#      - name: Docker - API Build Image
+#        env:
+#          API_POSTGRID_KEY: ${{ secrets.API_POSTGRID_KEY }}
+#          DOCKER_BUILDKIT: 1
+#        #run: docker build -f "src/Nimb3s.Streets.Api/Dockerfile" --tag nimb3s/streets.api:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Api" --build-arg API_POSTGRID_KEY=$API_POSTGRID_KEY . --progress plain
+#        run: docker build --tag nimb3s/streets.api:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Api" --build-arg API_POSTGRID_KEY=$API_POSTGRID_KEY . --progress plain
+#
+#      - name: Docker - DB Build Image
+#        run: docker build -f "src/Nimb3s.Streets.Database/Dockerfile" --tag nimb3s/streets.database:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Database" . --progress plain
+#
+#      - name: Login to DockerHub Registry
+#        env:
+#        #https://docs.github.com/en/actions/reference/encrypted-secrets
+#          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+#          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+#        run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+#
+#      - name: Docker - API Upload Image to dockerhub
+#        run: docker push nimb3s/streets.api:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
+#        
+#      - name: Docker - DB Upload Image to dockerhub
+#        run: docker push nimb3s/streets.database:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
+#
+#      - name: Docker - Component Tests Upload Image to dockerhub
+#        run: docker push nimb3s/streets.api.componenttests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
+#
+#      - name: Docker - E2E Tests Upload Image to dockerhub
+#        run: docker push nimb3s/streets.api.e2etests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
+  build_api:
+    if: github.event.pull_request.base.ref != 'develop'
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-18.04]
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup SemVer
+        uses: dotnet/nbgv@v0.4.0
+        with:
+          setAllVars: true
+
+      - name: Setup Slugs
+        uses: rlespinasse/github-slug-action@v3.x
+
+      - name: Build API Image
+        env:
+          API_POSTGRID_KEY: ${{ secrets.API_POSTGRID_KEY }}
+          DOCKER_BUILDKIT: 1
+        run: docker build --file "Dockerfile" --tag nimb3s/streets.api:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Api" --build-arg API_POSTGRID_KEY=$API_POSTGRID_KEY . --progress plain
+
+      - name: Login to DockerHub
+        env:
+        #https://docs.github.com/en/actions/reference/encrypted-secrets
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+
+      - name: Upload API Image
+        run: docker push nimb3s/streets.api:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
+  build_db:
     if: github.event.pull_request.base.ref != 'develop'
     #needs: [api_docker_image, database_docker_image]
     runs-on: ${{matrix.os}}
@@ -128,34 +228,153 @@ jobs:
       - name: Setup Slugs
         uses: rlespinasse/github-slug-action@v3.x
 
-      - name: Build containers
-        run: docker-compose build --progress plain
+      - name: Build DB Image
+        run: docker build --file "src/Nimb3s.Streets.Database/Dockerfile" --tag nimb3s/streets.database:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Database" . --progress plain
+
+      - name: Login to DockerHub
+        env:
+        #https://docs.github.com/en/actions/reference/encrypted-secrets
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+        
+      - name: Upload DB Image
+        run: docker push nimb3s/streets.database:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
+  build_component_tests:
+    if: github.event.pull_request.base.ref != 'develop'
+    needs: [build_api, build_db]
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-18.04]
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup SemVer
+        uses: dotnet/nbgv@v0.4.0
+        with:
+          setAllVars: true
+
+      - name: Setup Slugs
+        uses: rlespinasse/github-slug-action@v3.x
+
+      - name: Build ComponentTest Image
+        run: docker build --file "Dockerfile" --target componenttestrunner -t nimb3s/streets.api.componenttests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} .
+
+      - name: Login to DockerHub
+        env:
+        #https://docs.github.com/en/actions/reference/encrypted-secrets
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+
+      - name: Upload Component Test Image
+        run: docker push nimb3s/streets.api.componenttests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
+  build_e2e_tests:
+    if: github.event.pull_request.base.ref != 'develop'
+    needs: [build_api, build_db]
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-18.04]
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup SemVer
+        uses: dotnet/nbgv@v0.4.0
+        with:
+          setAllVars: true
+
+      - name: Setup Slugs
+        uses: rlespinasse/github-slug-action@v3.x
+
+      - name: Build E2ETest Image
+        run: docker build --file "Dockerfile" --target e2etestrunner -t nimb3s/streets.api.e2etests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} .
+
+      - name: Login to DockerHub
+        env:
+        #https://docs.github.com/en/actions/reference/encrypted-secrets
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+
+      - name: Upload E2ETest Image
+        run: docker push nimb3s/streets.api.e2etests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
+  run_component_tests:
+    if: github.event.pull_request.base.ref != 'develop'
+    needs: [build_component_tests]
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-18.04]
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup SemVer
+        uses: dotnet/nbgv@v0.4.0
+        with:
+          setAllVars: true
+
+      - name: Setup Slugs
+        uses: rlespinasse/github-slug-action@v3.x
 
       - name: Start containers
         run: docker-compose up --detach
 
-      - name: Build Component Test Container
-        run: docker build --target componenttestrunner -t nimb3s/streets.api.componenttests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} .
-
-      - name: Build E2E Test Container
-        run: docker build --target e2etestrunner -t nimb3s/streets.api.e2etests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} .
-
       - name: Run Component Tests
         run: docker run --network=host --name component_tests nimb3s/streets.api.componenttests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
-      
-      - name: Install Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14.17.6'
 
-      - name: Install Playwright
-        run: npx playwright install --with-deps
-      #https://playwright.dev/docs/docker/
-      #- name: Pull Playwright Image
-      #  run: docker pull mcr.microsoft.com/playwright:v1.10.0-focal
-      #
-      #- name: Run Playwright Image
-      #  run: docker run -it --rm --ipc=host mcr.microsoft.com/playwright:focal /bin/bash
+      - name: Stop containers
+        if: always()
+        run: docker-compose stop --force
+
+      - name: Remove containers
+        if: always()
+        run: docker-compose rm --force
+
+      - name: Remove Images
+        if: always()
+        run: docker image prune --force
+  run_e2e_tests:
+    if: github.event.pull_request.base.ref != 'develop'
+    needs: [build_e2e_tests]
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-18.04]
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup SemVer
+        uses: dotnet/nbgv@v0.4.0
+        with:
+          setAllVars: true
+
+      - name: Setup Slugs
+        uses: rlespinasse/github-slug-action@v3.x
+
+      - name: Start containers
+        run: docker-compose up --detach
 
       - name: Run E2E Tests
         run: docker run --network=host --name e2e_tests nimb3s/streets.api.e2etests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
@@ -163,32 +382,6 @@ jobs:
       - name: Stop containers
         if: always()
         run: docker-compose stop --force
-
-      - name: Docker - API Build Image
-        env:
-          API_POSTGRID_KEY: ${{ secrets.API_POSTGRID_KEY }}
-          DOCKER_BUILDKIT: 1
-        #run: docker build -f "src/Nimb3s.Streets.Api/Dockerfile" --tag nimb3s/streets.api:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Api" --build-arg API_POSTGRID_KEY=$API_POSTGRID_KEY . --progress plain
-        run: docker build --tag nimb3s/streets.api:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Api" --build-arg API_POSTGRID_KEY=$API_POSTGRID_KEY . --progress plain
-
-      - name: Docker - DB Build Image
-        run: docker build -f "src/Nimb3s.Streets.Database/Dockerfile" --tag nimb3s/streets.database:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Database" . --progress plain
-
-      - name: Login to DockerHub Registry
-        env:
-        #https://docs.github.com/en/actions/reference/encrypted-secrets
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-
-      - name: Docker - API Upload Image to dockerhub
-        run: docker push nimb3s/streets.api:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
-        
-      - name: Docker - DB Upload Image to dockerhub
-        run: docker push nimb3s/streets.database:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
-
-      - name: Docker - Component Tests Upload Image to dockerhub
-        run: docker push nimb3s/streets.api.componenttests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
 
       - name: Remove containers
         if: always()
