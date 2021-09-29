@@ -40,20 +40,17 @@ CMD ["dotnet", "test", "--logger:trx"]
 #RUN playwright install
 FROM mcr.microsoft.com/playwright:v1.10.0-bionic AS e2etestrunner
 RUN chown -R `whoami` /root
-WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
-
-RUN apt-get update \
-    && apt-get install -y wget \
-    && wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
-    && dpkg -i packages-microsoft-prod.deb \
-    && apt-get update \
-    && apt-get install -y apt-transport-https \
-    && apt-get install -y aspnetcore-runtime-5.0 \
-    && apt-get remove -y wget
 COPY --from=publish . .
+WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
+RUN dotnet publish tests/Nimb3s.Streets.Api.E2ETests/Nimb3s.Streets.Api.E2ETests.csproj -c Release -o /app/publish/Nimb3s.Streets.Api.E2ETests \
+    && ls \
+    && mkdir /publish/.playwright \
+    && cp -r tests/Nimb3s.Streets.Api.E2ETests/Release/net5.0/.playwright/unix /publish/.playwright 
 #RUN chown -R pwuser:pwuser /app
 RUN chown -R `whoami` /app
-CMD ["dotnet", "test", "--logger:trx"]
+RUN dotnet vstest /app/publish/Nimb3s.Streets.Api.E2ETests/Nimb3s.Streets.Api.E2ETests.dll
+
+#CMD ["dotnet", "test", "--logger:trx"]
 
 
 ####run api
