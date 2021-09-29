@@ -190,17 +190,17 @@ jobs:
       - name: Setup Slugs
         uses: rlespinasse/github-slug-action@v3.x
 
-#      - name: Build API Image
-#        env:
-#          API_POSTGRID_KEY: ${{ secrets.API_POSTGRID_KEY }}
-#          DOCKER_BUILDKIT: 1
-#        run: docker build --file "Dockerfile" --tag nimb3s/streets.api:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Api" --build-arg API_POSTGRID_KEY=$API_POSTGRID_KEY . --progress plain
-#
-#      - name: Build DB Image
-#        run: docker build --file "src/Nimb3s.Streets.Database/Dockerfile" --tag nimb3s/streets.database:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Database" . --progress plain
-#
-#      - name: Build ComponentTest Image
-#        run: docker build --file "Dockerfile" --target componenttestrunner -t nimb3s/streets.api.componenttests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} .
+      - name: Build API Image
+        env:
+          API_POSTGRID_KEY: ${{ secrets.API_POSTGRID_KEY }}
+          DOCKER_BUILDKIT: 1
+        run: docker build --file "Dockerfile" --tag nimb3s/streets.api:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Api" --build-arg API_POSTGRID_KEY=$API_POSTGRID_KEY . --progress plain
+
+      - name: Build DB Image
+        run: docker build --file "src/Nimb3s.Streets.Database/Dockerfile" --tag nimb3s/streets.database:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} --force-rm --label "org.label-schema.build-date=${{env.NBGV_GitCommitDate}}" --label "org.label-schema.vcs-url=https://nimb3s.com" --label "org.label-schema.vcs-ref=${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}" --label "com.microsoft.visual-studio.project-name=Nimb3s.Streets.Database" . --progress plain
+
+      - name: Build ComponentTest Image
+        run: docker build --file "Dockerfile" --target componenttestrunner -t nimb3s/streets.api.componenttests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} .
 
       - name: Build E2ETest Image
         run: docker build --file "Dockerfile" --target e2etestrunner -t nimb3s/streets.api.e2etests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}} .
