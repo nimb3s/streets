@@ -44,7 +44,8 @@ RUN apt-get update \
     && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
     && apt-get install -y nodejs
 RUN npm -v
-RUN npm install -g npx
+RUN npm ci
+#RUN npm install -g npx
 RUN npx playwright install --with-deps
 CMD ["dotnet", "test", "--logger:trx"]
 #RUN apt-get update \
