@@ -35,27 +35,27 @@ CMD ["dotnet", "test", "--logger:trx"]
 #CMD dotnet test --verbosity normal
 
 # create a new build target called e2etestrunner
-FROM mcr.microsoft.com/playwright:v1.10.0-bionic  as playwright
-#RUN chown -R pwuser:pwuser /app
-FROM publish AS e2etestrunner
-COPY --from=playwright . .
+FROM mcr.microsoft.com/playwright:v1.10.0-bionic as e2etestrunner
+COPY --from=publish . .
+WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
 RUN chown -R `whoami` /app
 RUN chown -R `whoami` /root
-RUN apt-get update \
-    && apt-get upgrade -y \
-    && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
-    && apt-get install -y nodejs
-RUN npm -v
+CMD ["dotnet", "test", "--logger:trx"]
+#RUN apt-get update \
+#    && apt-get upgrade -y \
+#    && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+#    && apt-get install -y nodejs
+
 #RUN npm i playwright
-RUN npx playwright install
-RUN npx playwright install-deps
-RUN chown -R `whoami` /root/.cache/ms-playwright
-COPY . .
+#RUN npx playwright install
+#RUN npx playwright install-deps
+#RUN chown -R `whoami` /root/.cache/ms-playwright
+#COPY . .
 #ENV PLAYWRIGHT_BROWSERS_PATH=/root/.cache/ms-playwright
 
-WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
+#WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
 #when you run this build target it will run the component tests
-CMD ["dotnet", "test", "--logger:trx"]
+#CMD ["dotnet", "test", "--logger:trx"]
 #CMD dotnet test --verbosity normal
 
 #FROM mcr.microsoft.com/playwright:v1.10.0-focal as e2etestrunner
