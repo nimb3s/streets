@@ -44,9 +44,8 @@ RUN apt-get update \
     && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
     && apt-get install -y nodejs
 RUN npm -v
-RUN npm install -g npx
-WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
 RUN npx playwright install
+WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
 #when you run this build target it will run the component tests
 CMD ["dotnet", "test", "--logger:trx"]
 #CMD dotnet test --verbosity normal
