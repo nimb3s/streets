@@ -208,8 +208,8 @@ jobs:
       - name: Start containers
         run: docker-compose up --detach
 
-      - name: Run Component Tests
-        run: docker run --network=host --name component_tests nimb3s/streets.api.componenttests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
+#      - name: Run Component Tests
+#        run: docker run --network=host --name component_tests nimb3s/streets.api.componenttests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
 
       - name: Run E2E Tests
         run: docker run --network=host --name e2e_tests nimb3s/streets.api.e2etests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
