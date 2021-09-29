@@ -214,6 +214,18 @@ jobs:
       - name: Run E2E Tests
         run: docker run --network=host --name e2e_tests nimb3s/streets.api.e2etests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
 
+      - name: Stop containers
+        if: always()
+        run: docker-compose stop --force
+
+      - name: Remove containers
+        if: always()
+        run: docker-compose rm --force
+
+      - name: Remove Images
+        if: always()
+        run: docker image prune --force
+
       - name: Login to DockerHub
         env:
         #https://docs.github.com/en/actions/reference/encrypted-secrets
