@@ -46,8 +46,10 @@ RUN apt-get update \
     && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
     && apt-get install -y nodejs
 RUN npm -v
-RUN npm i playwright
+#RUN npm i playwright
 RUN chown -R `whoami` /root/.cache/ms-playwright
+RUN npx playwright install
+RUN npx playwright install-deps
 COPY . .
 #ENV PLAYWRIGHT_BROWSERS_PATH=/root/.cache/ms-playwright
 
