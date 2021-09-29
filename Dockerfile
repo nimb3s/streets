@@ -35,11 +35,12 @@ CMD ["dotnet", "test", "--logger:trx"]
 #CMD dotnet test --verbosity normal
 
 # create a new build target called e2etestrunner
-#FROM mcr.microsoft.com/playwright:v1.10.0-focal as playwright
+FROM mcr.microsoft.com/playwright:v1.10.0-focal as playwright
 FROM node:lts-buster-slim AS node_base
 #RUN chown -R pwuser:pwuser /app
 FROM publish AS e2etestrunner
-COPY --from=node_base . 
+COPY --from=playwright . .
+COPY --from=node_base . .
 WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
 RUN npx playwright install
 #when you run this build target it will run the component tests
