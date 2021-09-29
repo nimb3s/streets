@@ -43,7 +43,6 @@ COPY --from=playwright . .
 COPY --from=node_base . .
 RUN npm -v
 RUN npm install -g npx
-/bin/sh: 1: npx: not found
 WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
 RUN npx playwright install
 #when you run this build target it will run the component tests
