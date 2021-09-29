@@ -36,6 +36,7 @@ CMD ["dotnet", "test", "--logger:trx"]
 
 # create a new build target called e2etestrunner
 FROM mcr.microsoft.com/playwright:v1.10.0-bionic as e2etestrunner
+RUN playwright install
 COPY --from=publish . .
 WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
 RUN chown -R `whoami` /app
