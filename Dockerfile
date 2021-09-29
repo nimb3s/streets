@@ -49,7 +49,8 @@ RUN npm -v
 RUN npm i playwright
 RUN chown -R `whoami` /root/.cache/ms-playwright
 COPY . .
-RUN ls -R
+ENV PLAYWRIGHT_BROWSERS_PATH=/root/.cache/ms-playwright
+
 WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
 #when you run this build target it will run the component tests
 CMD ["dotnet", "test", "--logger:trx"]
