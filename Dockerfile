@@ -36,7 +36,8 @@ CMD ["dotnet", "test", "--logger:trx"]
 
 # create a new build target called e2etestrunner
 FROM mcr.microsoft.com/playwright:v1.10.0-bionic as e2etestrunner
-RUN playwright install
+RUN chown -R `whoami` /app
+RUN chown -R `whoami` /root
 COPY --from=publish . .
 WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
 RUN apt-get update \
@@ -44,9 +45,8 @@ RUN apt-get update \
     && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
     && apt-get install -y nodejs
 RUN npm -v
+RUN npm install -g npx
 RUN npm i playwright
-RUN chown -R `whoami` /app
-RUN chown -R `whoami` /root
 CMD ["dotnet", "test", "--logger:trx"]
 #RUN apt-get update \
 #    && apt-get upgrade -y \
