@@ -38,7 +38,7 @@ CMD ["dotnet", "test", "--logger:trx"]
 FROM publish as e2etestrunner
 #RUN dotnet tool install --global Microsoft.Playwright.CLI
 #RUN playwright install
-RUN RUN chown -R `whoami` /app
+RUN chown -R `whoami` /app
 RUN chown -R `whoami` /root
 WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
 RUN dotnet restore
