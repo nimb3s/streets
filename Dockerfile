@@ -41,7 +41,7 @@ FROM publish AS e2etestrunner
 COPY --from=playwright . .
 RUN apt-get update \
     && apt-get upgrade -y \
-    && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+    && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
     && apt-get install -y nodejs
 RUN npm -v
 RUN npx playwright install
