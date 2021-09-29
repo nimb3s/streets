@@ -41,10 +41,10 @@ FROM publish AS e2etestrunner
 COPY --from=playwright . .
 RUN apt-get update \
     && apt-get upgrade -y \
-    && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+    && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
     && apt-get install -y nodejs
 RUN npm -v
-RUN npx playwright install
+RUN npm install -g playwright
 WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
 #when you run this build target it will run the component tests
 CMD ["dotnet", "test", "--logger:trx"]
