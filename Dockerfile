@@ -35,11 +35,10 @@ CMD ["dotnet", "test", "--logger:trx"]
 #CMD dotnet test --verbosity normal
 
 # create a new build target called e2etestrunner
-FROM mcr.microsoft.com/playwright:v1.10.0-bionic as e2etestrunner
-COPY --from=publish . .
+FROM publish as e2etestrunner
+WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
 RUN chown -R `whoami` /app
 RUN chown -R `whoami` /root
-WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
 RUN apt-get update \
     && apt-get upgrade -y \
     && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
