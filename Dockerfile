@@ -36,9 +36,9 @@ CMD ["dotnet", "test", "--logger:trx"]
 
 # create a new build target called e2etestrunner
 FROM mcr.microsoft.com/playwright:v1.10.0-focal as playwright
+#RUN chown -R pwuser:pwuser /app
 FROM publish AS e2etestrunner
 WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
-RUN chown -R pwuser:pwuser /app
 #when you run this build target it will run the component tests
 CMD ["dotnet", "test", "--logger:trx"]
 #CMD dotnet test --verbosity normal
