@@ -41,7 +41,8 @@ CMD ["dotnet", "test", "--logger:trx"]
 FROM mcr.microsoft.com/playwright:v1.10.0-bionic AS e2etestrunner
 RUN chown -R `whoami` /root
 COPY --from=publish . .
-WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
+#WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
+RUN ls -R
 RUN dotnet publish tests/Nimb3s.Streets.Api.E2ETests/Nimb3s.Streets.Api.E2ETests.csproj -c Release -o /app/publish/Nimb3s.Streets.Api.E2ETests \
     && ls \
     && mkdir /publish/.playwright \
