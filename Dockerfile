@@ -49,7 +49,7 @@ RUN npm -v
 RUN npm i playwright
 RUN chown -R `whoami` /root/.cache/ms-playwright
 COPY . .
-ENV PLAYWRIGHT_BROWSERS_PATH=/root/.cache/ms-playwright
+#ENV PLAYWRIGHT_BROWSERS_PATH=/root/.cache/ms-playwright
 
 WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
 #when you run this build target it will run the component tests
