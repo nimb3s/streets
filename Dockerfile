@@ -21,14 +21,14 @@ RUN dotnet publish "src/Nimb3s.Streets.Api/Nimb3s.Streets.Api.csproj" -c Release
 #build target to run component tests
 FROM publish AS componenttestrunner
 WORKDIR /app/tests/Nimb3s.Streets.Api.ComponentTests
-RUN dotnet test --logger trx
+CMD ["dotnet", "test", "--logger:trx"] 
 
 #build target to run e2e tests
 FROM mcr.microsoft.com/playwright:v1.10.0-bionic AS e2etestrunner
 COPY --from=publish . .
 WORKDIR /app/tests/Nimb3s.Streets.Api.E2ETests
 RUN npm i playwright
-RUN dotnet test --logger trx
+CMD ["dotnet", "test", "--logger:trx"] 
 
 ####run api
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS final
