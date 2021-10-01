@@ -21,6 +21,10 @@ USER mssql
 WORKDIR /tmp/db/
 COPY --from=build /app/build/Nimb3s.Streets.Database/Nimb3s.Streets.Database.dacpac /tmp/db/Nimb3s.Streets.Database.dacpac
 RUN ls -R
+# shows secret from default secret location:
+#RUN --mount=type=secret,id=mysecret cat /run/secrets/mysecret
+#RUN --mount=type=secret,id=_secrets,dst=/etc/secrets/.secrets cat /etc/secrets/.secrets
+
 # Configure external build arguments to allow configurability.
 ARG DBNAME=Streets
 ARG PASSWORD=1234qwerASDF

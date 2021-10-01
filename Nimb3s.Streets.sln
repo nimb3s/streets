@@ -31,7 +31,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{EF60A2A0-758D-44BB-8C79-5A39E2CCC5F2}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\develop-ci.yml = .github\workflows\develop-ci.yml
-		.github\workflows\develop-e2e.yml = .github\workflows\develop-e2e.yml
 		.github\workflows\master-ci.yml = .github\workflows\master-ci.yml
 	EndProjectSection
 EndProject
@@ -40,6 +39,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nimb3s.Streets.Api.ComponentTests", "tests\Nimb3s.Streets.Api.ComponentTests\Nimb3s.Streets.Api.ComponentTests.csproj", "{EE08F531-BFAE-47FA-AC5A-DD8709BE683F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nimb3s.Streets.Api.UnitTests", "tests\Nimb3s.Streets.Api.UnitTests\Nimb3s.Streets.Api.UnitTests.csproj", "{4D867FBE-6995-44BD-9D04-D88A60E7A448}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nimb3s.Streets.Api.E2ETests", "tests\Nimb3s.Streets.Api.E2ETests\Nimb3s.Streets.Api.E2ETests.csproj", "{905F3424-4153-4E92-A269-F15ADF0E70C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,6 +87,14 @@ Global
 		{4D867FBE-6995-44BD-9D04-D88A60E7A448}.ReleaseDatabase|Any CPU.Build.0 = Release|Any CPU
 		{4D867FBE-6995-44BD-9D04-D88A60E7A448}.ReleaseNoDb|Any CPU.ActiveCfg = Release|Any CPU
 		{4D867FBE-6995-44BD-9D04-D88A60E7A448}.ReleaseNoDb|Any CPU.Build.0 = Release|Any CPU
+		{905F3424-4153-4E92-A269-F15ADF0E70C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{905F3424-4153-4E92-A269-F15ADF0E70C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{905F3424-4153-4E92-A269-F15ADF0E70C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{905F3424-4153-4E92-A269-F15ADF0E70C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{905F3424-4153-4E92-A269-F15ADF0E70C9}.ReleaseDatabase|Any CPU.ActiveCfg = Release|Any CPU
+		{905F3424-4153-4E92-A269-F15ADF0E70C9}.ReleaseDatabase|Any CPU.Build.0 = Release|Any CPU
+		{905F3424-4153-4E92-A269-F15ADF0E70C9}.ReleaseNoDb|Any CPU.ActiveCfg = Release|Any CPU
+		{905F3424-4153-4E92-A269-F15ADF0E70C9}.ReleaseNoDb|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +104,7 @@ Global
 		{EF60A2A0-758D-44BB-8C79-5A39E2CCC5F2} = {9D7C975A-8793-48DA-B2AB-2F3BE09545EB}
 		{EE08F531-BFAE-47FA-AC5A-DD8709BE683F} = {E248E58B-840C-4B26-97A5-307C7F9AA5B7}
 		{4D867FBE-6995-44BD-9D04-D88A60E7A448} = {E248E58B-840C-4B26-97A5-307C7F9AA5B7}
+		{905F3424-4153-4E92-A269-F15ADF0E70C9} = {E248E58B-840C-4B26-97A5-307C7F9AA5B7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {46268209-EA22-407C-AE07-35CA7C25DF71}
