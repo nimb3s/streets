@@ -7,7 +7,7 @@ on:
     branches: [ develop ]
 
 jobs:
-  build:
+  publish_images:
     if: github.event.pull_request.base.ref != 'develop'
     runs-on: ${{matrix.os}}
     strategy:
