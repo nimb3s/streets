@@ -66,12 +66,6 @@ jobs:
       - name: Upload DB Image
         run: docker push nimb3s/streets.database:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
 
-      - name: Upload Component Test Image
-        run: docker push nimb3s/streets.api.componenttests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
-
-      - name: Upload E2E Test Image
-        run: docker push nimb3s/streets.api.e2etests:${{env.GITHUB_REF_SLUG}}-${{env.NBGV_SimpleVersion}}
-
       - name: Stop and Remove Containers
         if: always()
         run: docker-compose stop
