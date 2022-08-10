@@ -1,0 +1,42 @@
+version: '3'
+services:
+  web-host-app:
+    image: nimb3s/web-host-app:latest
+    build:
+      context: ./host-app
+      dockerfile: web-host-app.dockerfile
+    container_name: Web.Host.App
+    restart: always
+    # we can see the server running at "localhost:8080"
+    ports:
+      - "8080:80"
+
+  e2e:
+    image: nimb3s/cypress:latest
+    build:
+      context: ./host-app
+      dockerfile: e2e.dockerfile
+    container_name: cypress
+    depends_on:
+      - web-host-app
+    # note: inside e2e container, the network allows accessing
+    # "web" host under name "web-host-app"
+    # so "curl http://web-host-app" would return whatever the webserver
+    # in the "web-host-app" container is cooking
+    # see https://docs.docker.com/compose/networking/
+    environment:
+      - CYPRESS_baseUrl=http://web-host-app
+    command: npx cypress run
+    # mount the host directory e2e/cypress and the file e2e/cypress.config.js as
+    # volumes within the container
+    # this means that:
+    #  1. anything that Cypress writes to these folders (e.g., screenshots,
+    #     videos) appears also on the Docker host's filesystem
+    #  2. any change that the developer applies to Cypress files on the host
+    #     machine immediately takes effect within the e2e container (no docker
+    #     rebuild required).
+    volumes:
+      - ./host-app/cypress:/app/cypress
+      - ./host-app/cypress.config.ts:/app/cypress.config.ts
+
+      #https://github.com/cypress-io/cypress-example-docker-compose
